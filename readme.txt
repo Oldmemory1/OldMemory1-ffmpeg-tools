@@ -11,3 +11,6 @@ convert_wav_to_flac.py：
 merge_equal_long_m4a_and_mp4.py：
 （1）将mp4视频和m4a音轨合并为新的mp4文件
 （2）批量合并某个指定目录下所有mp4文件和其同名的m4a音轨文件为新的mp4文件
+extract_m4a_audio_track_from_mp4.py：
+（1）从mp4文件中提取完整的m4a音轨
+（2）批量提取某个指定目录下所有mp4文件中完整的的m4a音轨

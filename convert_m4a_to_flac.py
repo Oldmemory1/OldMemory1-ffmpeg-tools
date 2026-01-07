@@ -1,11 +1,15 @@
 from pathlib import Path
 import subprocess
 
-def convert_m4a_to_flac_one_file(src_file: Path, dst_file: Path,ffmpeg: str):
+from check_ffmpeg import detect_ffmpeg_environment
+
+
+def convert_m4a_to_flac_one_file(src_file: Path, dst_file: Path, ffmpeg: str) -> None:
+    detect_ffmpeg_environment()
     dst_file.parent.mkdir(parents=True, exist_ok=True)
     cmd = [
         ffmpeg,
-        "-y",                 
+        "-y",
         "-i", str(src_file),
         "-c:a", "flac",
         str(dst_file)
@@ -19,7 +23,9 @@ def convert_m4a_to_flac_one_file(src_file: Path, dst_file: Path,ffmpeg: str):
         encoding="utf-8",
     )
 
-def convert_m4a_to_flac_dir(src_dir: Path, dst_dir: Path, ffmpeg: str):
+
+def convert_m4a_to_flac_dir(src_dir: Path, dst_dir: Path, ffmpeg: str) -> None:
+    detect_ffmpeg_environment()
     m4a_files = list(src_dir.rglob("*.m4a"))
     if not m4a_files:
         print("m4a files not found.")
@@ -33,12 +39,14 @@ def convert_m4a_to_flac_dir(src_dir: Path, dst_dir: Path, ffmpeg: str):
             continue
         try:
             print(f"[convert] {src} -> {dst}")
-            convert_m4a_to_flac_one_file(src_file=src, dst_file=dst,ffmpeg=ffmpeg)
+            convert_m4a_to_flac_one_file(src_file=src, dst_file=dst, ffmpeg=ffmpeg)
         except subprocess.CalledProcessError as e:
             print(f"[fail] {src}: {e}")
     print("done.")
+
+
 if __name__ == "__main__":
-    src_dir1 = Path(r"D:\音乐\audio")
-    dst_dir1 = Path(r"D:\音乐\audio_flac")
+    src_dir1 = Path(r"D:\音乐\audios")
+    dst_dir1 = Path(r"D:\音乐\audios_flac")
     ffmpeg1 = "ffmpeg"
     convert_m4a_to_flac_dir(src_dir=src_dir1, dst_dir=dst_dir1, ffmpeg=ffmpeg1)

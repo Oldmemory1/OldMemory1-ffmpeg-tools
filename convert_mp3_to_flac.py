@@ -9,7 +9,8 @@ def convert_mp3_to_flac_one_file(
     dst_file: Path,
     ffmpeg: str,
 ) -> None:
-
+    if not src_file.is_file():
+        raise FileNotFoundError(f"MP3 not found: {src_file}")
     dst_file.parent.mkdir(parents=True, exist_ok=True)
     cmd = [
         ffmpeg,

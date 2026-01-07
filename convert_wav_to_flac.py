@@ -2,6 +2,8 @@ import subprocess
 from pathlib import Path
 
 def convert_wav_to_flac_one_file(src_file: Path, dst_file: Path, ffmpeg: str) -> None:
+    if not src_file.is_file():
+        raise FileNotFoundError(f"WAV not found: {src_file}")
     dst_file.parent.mkdir(parents=True, exist_ok=True)
 
     cmd = [

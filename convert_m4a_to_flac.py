@@ -1,11 +1,11 @@
 from pathlib import Path
 import subprocess
 
-from check_ffmpeg import detect_ffmpeg_environment
+
 
 
 def convert_m4a_to_flac_one_file(src_file: Path, dst_file: Path, ffmpeg: str) -> None:
-    detect_ffmpeg_environment()
+
     dst_file.parent.mkdir(parents=True, exist_ok=True)
     cmd = [
         ffmpeg,
@@ -25,7 +25,7 @@ def convert_m4a_to_flac_one_file(src_file: Path, dst_file: Path, ffmpeg: str) ->
 
 
 def convert_m4a_to_flac_dir(src_dir: Path, dst_dir: Path, ffmpeg: str) -> None:
-    detect_ffmpeg_environment()
+
     m4a_files = list(src_dir.rglob("*.m4a"))
     if not m4a_files:
         print("m4a files not found.")

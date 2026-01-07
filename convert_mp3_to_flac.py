@@ -1,7 +1,7 @@
 import subprocess
 from pathlib import Path
 
-from check_ffmpeg import detect_ffmpeg_environment
+
 
 
 def convert_mp3_to_flac_one_file(
@@ -9,7 +9,7 @@ def convert_mp3_to_flac_one_file(
     dst_file: Path,
     ffmpeg: str,
 ) -> None:
-    detect_ffmpeg_environment()
+
     dst_file.parent.mkdir(parents=True, exist_ok=True)
     cmd = [
         ffmpeg,
@@ -36,7 +36,7 @@ def convert_mp3_to_flac_one_file(
         ) from e
 
 def convert_mp3_to_flac_dir(src_dir: Path, dst_dir: Path, ffmpeg: str) -> None:
-    detect_ffmpeg_environment()
+
     mp3_files = list(src_dir.rglob("*.mp3"))
     if not mp3_files:
         print("mp3 files not found.")

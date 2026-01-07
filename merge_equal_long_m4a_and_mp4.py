@@ -14,9 +14,9 @@ def merge_equal_long_m4a_and_mp4_one_file(
     if not input_m4a_file.is_file():
         raise FileNotFoundError(f"M4A not found: {input_m4a_file}")
     if input_m4a_file.suffix.lower() != ".m4a":
-        raise ValueError(f"Input file is not m4a: {input_m4a_file}")
+        raise ValueError(f"Input m4a file is not m4a: {input_m4a_file}")
     if input_mp4_file.suffix.lower() != ".mp4":
-        raise ValueError(f"Input file is not mp4: {input_mp4_file}")
+        raise ValueError(f"Input mp4 file is not mp4: {input_mp4_file}")
 
     cmd = [
         ffmpeg,

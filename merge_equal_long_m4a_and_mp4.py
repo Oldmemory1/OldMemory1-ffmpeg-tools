@@ -39,7 +39,8 @@ def merge_equal_long_m4a_and_mp4_one_file(
 def merge_equal_long_m4a_and_mp4_dir(
     src_dir: Path,
     dst_dir: Path,
-    ffmpeg: str = "ffmpeg",
+    ffmpeg: str,
+    delete_original_files: bool,
 ) -> None:
     if not src_dir.is_dir():
         raise NotADirectoryError(f"Source dir not found: {src_dir}")
@@ -70,18 +71,18 @@ def merge_equal_long_m4a_and_mp4_dir(
                 output_mp4_file=output_mp4,
                 ffmpeg=ffmpeg,
             )
-            print(f"[convert] {mp4_path and m4a_path} to {output_mp4}")
-            if os.path.exists(mp4_path):
-                os.remove(mp4_path)
-                print(f"合并成功，原文件 {mp4_path} 已删除")
-            else:
-                print(f"文件 {mp4_path} 不存在")
-            if os.path.exists(m4a_path):
-                os.remove(m4a_path)
-                print(f"合并成功，原文件 {m4a_path} 已删除")
-            else:
-                print(f"文件 {m4a_path} 不存在")
-
+            print(f"[convert] {mp4_path} and {m4a_path} to {output_mp4}")
+            if delete_original_files:
+                if os.path.exists(mp4_path):
+                    os.remove(mp4_path)
+                    print(f"合并成功，原文件 {mp4_path} 已删除")
+                else:
+                    print(f"文件 {mp4_path} 不存在")
+                if os.path.exists(m4a_path):
+                    os.remove(m4a_path)
+                    print(f"合并成功，原文件 {m4a_path} 已删除")
+                else:
+                    print(f"文件 {m4a_path} 不存在")
         except subprocess.CalledProcessError as e:
             print(f"[fail] {mp4_path,m4a_path}: {e}")
     print("done.")
@@ -89,4 +90,5 @@ def merge_equal_long_m4a_and_mp4_dir(
 if __name__ == "__main__":
     merge_equal_long_m4a_and_mp4_dir(src_dir=Path(r"D:\PyCharmProjects\ffmpeg_utils\origin_files"),
                                      dst_dir=Path(r"D:\PyCharmProjects\ffmpeg_utils\merged_files"),
-                                     ffmpeg="ffmpeg",)
+                                     ffmpeg="ffmpeg",
+                                     delete_original_files=True)
